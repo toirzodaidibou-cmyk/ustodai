@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+/*
+ * UstodAI — системаи дизайн
+ * Ҳама рангҳо ҳамчун токен дар :root муайян шудаанд ва барои мавзӯи торик иваз мешаванд.
+ */
+
+:root {
+  --bg: #f7f7f5;
+  --bg-elevated: #ffffff;
+  --bg-muted: #efefec;
+  --fg: #111114;
+  --fg-muted: #5d5d66;
+  --fg-subtle: #8b8b94;
+  --border: #e4e4e0;
+  --border-strong: #d2d2cc;
+
+  --brand: #5046e5;
+  --brand-hover: #4338ca;
+  --brand-soft: #eeedfd;
+  --brand-fg: #ffffff;
+
+  --success: #12a150;
+  --success-soft: #e6f6ec;
+  --warning: #e08a00;
+  --warning-soft: #fdf3e1;
+  --danger: #e5484d;
+  --danger-soft: #fdecec;
+
+  --shadow-sm: 0 1px 2px rgb(17 17 20 / 0.05);
+  --shadow-md: 0 1px 2px rgb(17 17 20 / 0.04), 0 8px 24px -8px rgb(17 17 20 / 0.12);
+  --shadow-lg: 0 2px 4px rgb(17 17 20 / 0.04), 0 24px 64px -16px rgb(17 17 20 / 0.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0b0f;
+    --bg-elevated: #15151b;
+    --bg-muted: #1c1c24;
+    --fg: #f2f2f5;
+    --fg-muted: #a1a1ad;
+    --fg-subtle: #6e6e7a;
+    --border: #26262f;
+    --border-strong: #34343f;
+
+    --brand: #7c74ff;
+    --brand-hover: #948dff;
+    --brand-soft: #1f1d3d;
+    --brand-fg: #ffffff;
+
+    --success: #3dd68c;
+    --success-soft: #11291c;
+    --warning: #ffb224;
+    --warning-soft: #2e2210;
+    --danger: #ff6369;
+    --danger-soft: #331617;
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -8px rgb(0 0 0 / 0.6);
+    --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.4), 0 24px 64px -16px rgb(0 0 0 / 0.8);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0b0f;
+  --bg-elevated: #15151b;
+  --bg-muted: #1c1c24;
+  --fg: #f2f2f5;
+  --fg-muted: #a1a1ad;
+  --fg-subtle: #6e6e7a;
+  --border: #26262f;
+  --border-strong: #34343f;
+
+  --brand: #7c74ff;
+  --brand-hover: #948dff;
+  --brand-soft: #1f1d3d;
+  --brand-fg: #ffffff;
+
+  --success: #3dd68c;
+  --success-soft: #11291c;
+  --warning: #ffb224;
+  --warning-soft: #2e2210;
+  --danger: #ff6369;
+  --danger-soft: #331617;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -8px rgb(0 0 0 / 0.6);
+  --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.4), 0 24px 64px -16px rgb(0 0 0 / 0.8);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-muted: var(--bg-muted);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-fg: var(--brand-fg);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brand);
+  color: var(--brand-fg);
+}
