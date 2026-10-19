@@ -24,9 +24,14 @@ export function Navbar() {
             </a>
           ))}
         </nav>
-        <ButtonLink href="#start" size="sm">
-          Оғоз кардан
-        </ButtonLink>
+        <div className="flex items-center gap-1">
+          <ButtonLink href="/auth/sign-in" variant="ghost" size="sm">
+            Воридшавӣ
+          </ButtonLink>
+          <ButtonLink href="/auth/sign-up" size="sm">
+            Оғоз кардан
+          </ButtonLink>
+        </div>
       </div>
     </header>
   );

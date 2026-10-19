@@ -33,7 +33,7 @@ export function Hero() {
           </p>
 
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
-            <ButtonLink href="#start" size="lg" className="w-full sm:w-auto">
+            <ButtonLink href="/auth/sign-up" size="lg" className="w-full sm:w-auto">
               Ройгон оғоз кун
               <ArrowRight className="size-4.5" strokeWidth={2.5} />
             </ButtonLink>
