@@ -13,4 +13,6 @@ export default defineConfig({
   dialect: "postgresql",
   dbCredentials: { url: withStrictSsl(url) },
   strict: true,
+  // Схемаи neon_auth-ро Neon Auth идора мекунад, drizzle-kit танҳо public-ро мебинад
+  schemaFilter: ["public"],
 });

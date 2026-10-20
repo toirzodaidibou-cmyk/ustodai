@@ -1,166 +1,265 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 /*
- * UstodAI — системаи дизайн
- * Ҳама рангҳо ҳамчун токен дар :root муайян шудаанд ва барои мавзӯи торик иваз мешаванд.
+ * UstodAI — токенҳои дизайн (shadcn/ui, base color: neutral).
+ * Манбаи ҳақиқат: DESIGN.md дар решаи репозиторий.
+ * Мавзӯи торик бо синфи .dark (next-themes) фаъол мешавад.
  */
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
-  --bg: #f7f7f5;
-  --bg-elevated: #ffffff;
-  --bg-muted: #efefec;
-  --fg: #111114;
-  --fg-muted: #5d5d66;
-  --fg-subtle: #8b8b94;
-  --border: #e4e4e0;
-  --border-strong: #d2d2cc;
+  --radius: 0.625rem;
 
-  --brand: #5046e5;
-  --brand-hover: #4338ca;
-  --brand-soft: #eeedfd;
-  --brand-fg: #ffffff;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
 
-  --success: #12a150;
-  --success-soft: #e6f6ec;
-  --warning: #e08a00;
-  --warning-soft: #fdf3e1;
-  --danger: #e5484d;
-  --danger-soft: #fdecec;
+  /* Ҳолатҳо барои баҳодиҳии FSRS (танҳо нуқтаҳои хурд ва матни ёрирасон) */
+  --success: oklch(0.6 0.13 163);
+  --warning: oklch(0.7 0.15 70);
 
-  --shadow-sm: 0 1px 2px rgb(17 17 20 / 0.05);
-  --shadow-md: 0 1px 2px rgb(17 17 20 / 0.04), 0 8px 24px -8px rgb(17 17 20 / 0.12);
-  --shadow-lg: 0 2px 4px rgb(17 17 20 / 0.04), 0 24px 64px -16px rgb(17 17 20 / 0.22);
+  /* Ранги сабзи менюи навигатсия (танҳо дар меню) */
+  --nav-accent: oklch(0.6 0.15 155);
+  --nav-accent-soft: oklch(0.95 0.05 155);
+
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0b0b0f;
-    --bg-elevated: #15151b;
-    --bg-muted: #1c1c24;
-    --fg: #f2f2f5;
-    --fg-muted: #a1a1ad;
-    --fg-subtle: #6e6e7a;
-    --border: #26262f;
-    --border-strong: #34343f;
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
 
-    --brand: #7c74ff;
-    --brand-hover: #948dff;
-    --brand-soft: #1f1d3d;
-    --brand-fg: #ffffff;
+  --success: oklch(0.7 0.14 163);
+  --warning: oklch(0.8 0.15 75);
 
-    --success: #3dd68c;
-    --success-soft: #11291c;
-    --warning: #ffb224;
-    --warning-soft: #2e2210;
-    --danger: #ff6369;
-    --danger-soft: #331617;
+  --nav-accent: oklch(0.78 0.16 155);
+  --nav-accent-soft: oklch(0.32 0.07 155);
 
-    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-    --shadow-md: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -8px rgb(0 0 0 / 0.6);
-    --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.4), 0 24px 64px -16px rgb(0 0 0 / 0.8);
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg: #0b0b0f;
-  --bg-elevated: #15151b;
-  --bg-muted: #1c1c24;
-  --fg: #f2f2f5;
-  --fg-muted: #a1a1ad;
-  --fg-subtle: #6e6e7a;
-  --border: #26262f;
-  --border-strong: #34343f;
-
-  --brand: #7c74ff;
-  --brand-hover: #948dff;
-  --brand-soft: #1f1d3d;
-  --brand-fg: #ffffff;
-
-  --success: #3dd68c;
-  --success-soft: #11291c;
-  --warning: #ffb224;
-  --warning-soft: #2e2210;
-  --danger: #ff6369;
-  --danger-soft: #331617;
-
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -8px rgb(0 0 0 / 0.6);
-  --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.4), 0 24px 64px -16px rgb(0 0 0 / 0.8);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-bg-elevated: var(--bg-elevated);
-  --color-bg-muted: var(--bg-muted);
-  --color-fg: var(--fg);
-  --color-fg-muted: var(--fg-muted);
-  --color-fg-subtle: var(--fg-subtle);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-heading: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
   --color-border: var(--border);
-  --color-border-strong: var(--border-strong);
-  --color-brand: var(--brand);
-  --color-brand-hover: var(--brand-hover);
-  --color-brand-soft: var(--brand-soft);
-  --color-brand-fg: var(--brand-fg);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --color-success: var(--success);
-  --color-success-soft: var(--success-soft);
   --color-warning: var(--warning);
-  --color-warning-soft: var(--warning-soft);
-  --color-danger: var(--danger);
-  --color-danger-soft: var(--danger-soft);
+  --color-nav-accent: var(--nav-accent);
+  --color-nav-accent-soft: var(--nav-accent-soft);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
 
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-  50% {
-    transform: translateY(-8px);
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 }
 
-@keyframes fade-up {
+/* Нури давразананда дар канори корт (BorderBeam) */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes beam-spin {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
+.border-beam {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg 300deg,
+    color-mix(in oklch, var(--foreground) 55%, transparent) 340deg,
+    transparent 360deg
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: beam-spin 8s linear infinite;
+}
+
+/* Хати логотип ҳангоми hover аз нав «кашида» мешавад */
+@keyframes logo-draw {
   from {
-    opacity: 0;
-    transform: translateY(16px);
+    stroke-dashoffset: 40;
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
+    stroke-dashoffset: 0;
   }
+}
+
+/* Мавҷи овоз дар корти «Талаффуз» */
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.wave-bar {
+  transform-origin: center;
+  transform: scaleY(0.45);
+  transition: transform 0.4s ease;
+}
+
+.wave-bar-play {
+  animation: wave 0.7s ease-in-out infinite;
+}
+
+/* Нуқтаҳои «навишта истодааст» */
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+.typing-dot {
+  animation: typing 1s ease-in-out infinite;
+}
+
+/* Тӯри нуқтаҳо барои пасзаминаи hero, ки ба канорҳо хира мешавад */
+.bg-dot-grid {
+  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 14%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+}
+
+/* Матн бо дурахши гузаранда (барои як калимаи калидӣ) */
+@keyframes shine {
+  from {
+    background-position: 200% center;
+  }
+  to {
+    background-position: -200% center;
+  }
+}
+
+.text-shine {
+  background: linear-gradient(
+      110deg,
+      var(--foreground) 40%,
+      color-mix(in oklch, var(--foreground) 35%, transparent) 50%,
+      var(--foreground) 60%
+    )
+    0 0 / 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 6s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+  html {
+    scroll-behavior: auto;
   }
-}
-
-html {
-  scroll-behavior: smooth;
-  color-scheme: light dark;
-}
-
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-feature-settings: "cv11", "ss01";
-  -webkit-font-smoothing: antialiased;
-}
-
-::selection {
-  background: var(--brand);
-  color: var(--brand-fg);
+  .border-beam,
+  .text-shine,
+  .wave-bar-play,
+  .typing-dot {
+    animation: none;
+  }
 }

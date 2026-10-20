@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import { useActionState, useState } from "react";
-import { ArrowRight, Eye, EyeOff, LoaderCircle } from "lucide-react";
+import { AlertCircle, Eye, EyeOff, Loader2 } from "lucide-react";
 import type { AuthFormState } from "@/app/auth/actions";
-import { buttonClass } from "@/components/ui/button";
-import { cn } from "@/lib/cn";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 type Mode = "sign-in" | "sign-up";
 
@@ -16,17 +19,17 @@ type Props = {
 
 const COPY = {
   "sign-up": {
-    title: "Ҳисоби нав бисоз",
-    subtitle: "Ройгон аст ва як дақиқа вақт мегирад.",
+    title: "Сохтани ҳисоб",
+    description: "Ном, email ва паролро нависед.",
     submit: "Сохтани ҳисоб",
-    pending: "Ҳисоб сохта мешавад…",
+    pending: "Сохта мешавад…",
     switchText: "Аллакай ҳисоб доред?",
     switchLink: "Ворид шавед",
     switchHref: "/auth/sign-in",
   },
   "sign-in": {
-    title: "Хуш омадед!",
-    subtitle: "Барои идомаи омӯзиш ворид шавед.",
+    title: "Воридшавӣ",
+    description: "Барои идомаи омӯзиш email ва паролро нависед.",
     submit: "Ворид шудан",
     pending: "Ворид мешавем…",
     switchText: "Ҳисоб надоред?",
@@ -35,9 +38,6 @@ const COPY = {
   },
 } as const;
 
-const inputClass =
-  "h-12 w-full rounded-2xl border border-border bg-bg-elevated px-4 text-[15px] text-fg shadow-sm outline-none transition placeholder:text-fg-subtle focus:border-brand focus:ring-4 focus:ring-brand-soft";
-
 export function AuthForm({ mode, action }: Props) {
   const [state, formAction, isPending] = useActionState(action, null);
   const [showPassword, setShowPassword] = useState(false);
@@ -45,98 +45,87 @@ export function AuthForm({ mode, action }: Props) {
 
   return (
     <div className="w-full max-w-sm">
-      <h1 className="text-3xl font-extrabold tracking-[-0.03em]">{copy.title}</h1>
-      <p className="mt-2 text-fg-muted">{copy.subtitle}</p>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-xl">{copy.title}</CardTitle>
+          <CardDescription>{copy.description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {/* key: пас аз хато форма бо қиматҳои пешина аз нав сохта мешавад */}
+          <form action={formAction} key={JSON.stringify(state?.values ?? {})} className="grid gap-4" noValidate>
+            {mode === "sign-up" && (
+              <div className="grid gap-2">
+                <Label htmlFor="name">Ном</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  autoComplete="name"
+                  required
+                  minLength={2}
+                  maxLength={50}
+                  placeholder="Фарзона"
+                  defaultValue={state?.values?.name}
+                  className="h-9"
+                />
+              </div>
+            )}
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                required
+                placeholder="nom@gmail.com"
+                defaultValue={state?.values?.email}
+                className="h-9"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Парол</Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete={mode === "sign-up" ? "new-password" : "current-password"}
+                  required
+                  minLength={8}
+                  placeholder={mode === "sign-up" ? "Ақаллан 8 аломат" : undefined}
+                  className="h-9 pr-9"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  onClick={() => setShowPassword((v) => !v)}
+                  aria-label={showPassword ? "Паролро пинҳон кардан" : "Паролро нишон додан"}
+                  className="absolute top-1/2 right-1 -translate-y-1/2 text-muted-foreground"
+                >
+                  {showPassword ? <EyeOff /> : <Eye />}
+                </Button>
+              </div>
+            </div>
 
-      {/* key: пас аз хато форма бо қиматҳои пешина аз нав сохта мешавад */}
-      <form action={formAction} key={JSON.stringify(state?.values ?? {})} className="mt-8 space-y-4" noValidate>
-        {mode === "sign-up" && (
-          <div className="space-y-1.5">
-            <label htmlFor="name" className="text-sm font-semibold">
-              Ном
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              autoComplete="name"
-              required
-              minLength={2}
-              maxLength={50}
-              placeholder="Масалан, Фарзона"
-              defaultValue={state?.values?.name}
-              className={inputClass}
-            />
-          </div>
-        )}
+            {state?.error && (
+              <Alert variant="destructive">
+                <AlertCircle />
+                <AlertDescription role="alert">{state.error}</AlertDescription>
+              </Alert>
+            )}
 
-        <div className="space-y-1.5">
-          <label htmlFor="email" className="text-sm font-semibold">
-            Email
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            inputMode="email"
-            autoComplete="email"
-            required
-            placeholder="nom@gmail.com"
-            defaultValue={state?.values?.email}
-            className={inputClass}
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <label htmlFor="password" className="text-sm font-semibold">
-            Парол
-          </label>
-          <div className="relative">
-            <input
-              id="password"
-              name="password"
-              type={showPassword ? "text" : "password"}
-              autoComplete={mode === "sign-up" ? "new-password" : "current-password"}
-              required
-              minLength={8}
-              placeholder={mode === "sign-up" ? "Ақаллан 8 аломат" : "••••••••"}
-              className={cn(inputClass, "pr-12")}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((v) => !v)}
-              aria-label={showPassword ? "Паролро пинҳон кардан" : "Паролро нишон додан"}
-              className="absolute top-1/2 right-2 flex size-9 -translate-y-1/2 items-center justify-center rounded-xl text-fg-subtle transition hover:bg-bg-muted hover:text-fg"
-            >
-              {showPassword ? <EyeOff className="size-4.5" /> : <Eye className="size-4.5" />}
-            </button>
-          </div>
-        </div>
-
-        {state?.error && (
-          <p role="alert" className="rounded-2xl bg-danger-soft px-4 py-3 text-sm font-medium text-danger">
-            {state.error}
-          </p>
-        )}
-
-        <button type="submit" disabled={isPending} className={buttonClass("primary", "lg", "mt-2 w-full")}>
-          {isPending ? (
-            <>
-              <LoaderCircle className="size-4.5 animate-spin" />
-              {copy.pending}
-            </>
-          ) : (
-            <>
-              {copy.submit}
-              <ArrowRight className="size-4.5" strokeWidth={2.5} />
-            </>
-          )}
-        </button>
-      </form>
-
-      <p className="mt-8 text-center text-sm text-fg-muted">
+            <Button type="submit" disabled={isPending} className="h-9 w-full">
+              {isPending && <Loader2 className="animate-spin" />}
+              {isPending ? copy.pending : copy.submit}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+      <p className="mt-4 text-center text-sm text-muted-foreground">
         {copy.switchText}{" "}
-        <Link href={copy.switchHref} className="font-semibold text-brand hover:underline">
+        <Link href={copy.switchHref} className="font-medium text-foreground underline-offset-4 hover:underline">
           {copy.switchLink}
         </Link>
       </p>

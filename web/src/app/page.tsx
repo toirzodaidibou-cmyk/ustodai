@@ -1,8 +1,7 @@
 import { Navbar } from "@/components/landing/navbar";
 import { Hero } from "@/components/landing/hero";
-import { Problem } from "@/components/landing/problem";
-import { HowItWorks } from "@/components/landing/how-it-works";
 import { Features } from "@/components/landing/features";
+import { HowItWorks } from "@/components/landing/how-it-works";
 import { Science } from "@/components/landing/science";
 import { Languages } from "@/components/landing/languages";
 import { Cta } from "@/components/landing/cta";
@@ -14,9 +13,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Problem />
-        <HowItWorks />
         <Features />
+        <HowItWorks />
         <Science />
         <Languages />
         <Cta />

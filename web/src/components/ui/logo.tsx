@@ -1,34 +1,46 @@
 import Link from "next/link";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/utils";
 
+/**
+ * Нишони UstodAI: қаҷхаттаи хотира, ки бо ҳар такрор (нуқтаҳо) баландтар мешавад —
+ * ғояи асосии такрори фосилавӣ. Замина: лоҷвард → фирӯза.
+ */
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 32 32" aria-hidden className={cn("size-8", className)}>
-      <defs>
-        <linearGradient id="ustod-g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#7c74ff" />
-          <stop offset="1" stopColor="#4338ca" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="9" fill="url(#ustod-g)" />
-      <path
-        d="M10 9.5v7.25a6 6 0 0 0 12 0V9.5"
-        fill="none"
-        stroke="#fff"
-        strokeWidth="3"
-        strokeLinecap="round"
+    <span
+      aria-hidden
+      className={cn(
+        "group/logo relative inline-flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-[9px] shadow-sm ring-1 ring-black/10",
+        className,
+      )}
+      style={{ background: "linear-gradient(135deg, #2a44d4 0%, #3b5bdb 45%, #0e9f8e 100%)" }}
+    >
+      <span
+        className="absolute inset-0 opacity-60"
+        style={{ background: "radial-gradient(120% 80% at 20% 0%, rgb(255 255 255 / 0.35), transparent 60%)" }}
       />
-      <circle cx="22.5" cy="23.5" r="2.25" fill="#ffd166" />
-    </svg>
+      <svg viewBox="0 0 28 28" className="relative size-full" fill="none">
+        <path
+          d="M5 20.5 C 8 20.5, 8.5 15, 11.5 15 S 15 17.5, 17 12.5 S 20.5 7, 23 6.5"
+          stroke="white"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          className="[stroke-dasharray:40] [stroke-dashoffset:0] transition-[stroke-dashoffset] duration-700 ease-out group-hover/logo:[animation:logo-draw_0.9s_ease-out]"
+        />
+        <circle cx="11.5" cy="15" r="1.9" fill="white" />
+        <circle cx="17" cy="12.5" r="1.9" fill="white" />
+        <circle cx="23" cy="6.5" r="2.3" fill="#f2a30f" stroke="white" strokeWidth="1.2" />
+      </svg>
+    </span>
   );
 }
 
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, href = "/" }: { className?: string; href?: string }) {
   return (
-    <Link href="/" className={cn("flex items-center gap-2.5", className)} aria-label="UstodAI — саҳифаи асосӣ">
+    <Link href={href} className={cn("group flex items-center gap-2 font-semibold tracking-tight", className)}>
       <LogoMark />
-      <span className="text-[17px] font-bold tracking-tight">
-        Ustod<span className="text-brand">AI</span>
+      <span>
+        Ustod<span className="text-muted-foreground transition-colors group-hover:text-foreground">AI</span>
       </span>
     </Link>
   );

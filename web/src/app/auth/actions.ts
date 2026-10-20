@@ -31,7 +31,8 @@ export async function signUpAction(_prev: AuthFormState, formData: FormData): Pr
   if (error) {
     return { error: authErrorMessage(error, "Сохтани ҳисоб муяссар нашуд. Боз кӯшиш кунед."), values };
   }
-  redirect("/app");
+  // Корбари нав аввал ҳадаф ва фанҳоро интихоб мекунад
+  redirect("/onboarding");
 }
 
 export async function signInAction(_prev: AuthFormState, formData: FormData): Promise<AuthFormState> {
