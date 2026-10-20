@@ -493,3 +493,12 @@ Commit-и кадами 2б: `736a818`.
 - E2E PASS: physics 4/4, subject 6/6, nav 15/15, overflow 11/11, auth 12/12, learn 12/12.
 - **Мушкили ёфтшуда:** ҳангоми иҷрои пай дар пайи тестҳо пайвасти пойгоҳ якчанд бор бо `ECONNRESET` қатъ шуд. Ин дар логи сервер дида шуд ва ба он сабаб onboarding ва tests ду бор афтоданд. Ин бояд ислоҳ шавад: `keepAlive` ва коркарди `pool.on("error")` барои pool, ва такрори дархост ҳангоми қатъи пайваст.
 - Санҷиши tests мувофиқ карда шуд: акнун саволҳо тасодуфӣ аз 32 интихоб мешаванд, бинобар ин шарҳи «ҳар 10 савол» санҷида мешавад, на шарҳи як саволи муайян.
+
+---
+
+## 2026-10-20 — Push ба GitHub
+
+- Remote: `https://github.com/toirzodaidibou-cmyk/ustodai.git`, branch `main`.
+- Дар GitHub commit-и «Initial commit» бо `README.md` буд. Он бо `--allow-unrelated-histories` merge карда шуд (force push иҷро нашуд) ва push гузашт: `001ce0e..b9fc80a`.
+- Санҷида шуд, ки `.env*` ва `.neon` ба GitHub нарафтанд.
+- Репозиторий ҳангоми push **Public** буд. Корбар гуфт, ки онро худаш Private мекунад.
